@@ -22,22 +22,24 @@
     align-items: center;
     flex-direction: column;
   }
-  h1 {
+  h2 {
     font-weight: 300;
-    font-size: 8vw;
+    font-size: 3.5vw;
     margin-top: 0;
   }
-  aside {
-    font-size: 2vw;
+  pre {
+    font-family: 'Source Code Pro';
   }
   </style>
 </head>
 <body unresolved>
 
-<geo-location watchPos></geo-location>
+<geo-location watchpos></geo-location>
 
 <template bind>
-  <h1>{{latitude}}, {{longitude}}</h1>
+  <h2><pre>&lt;geo-location latitude="{{latitude}}"
+              longitude="{{longitude}}">
+&lt;/geo-location></pre></h2>
 </template>
 
 <div>Position updates as your device moves</div>
@@ -45,8 +47,8 @@
 <script>
 var t = document.querySelector('template');
 t.model = {
-  latitude: '?',
-  longitude: '?'
+  latitude: '',
+  longitude: ''
 };
 
 var geolocation = document.querySelector('geo-location');
