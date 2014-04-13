@@ -2,6 +2,6 @@
   "name": "geo-location",
   "private": true,
   "dependencies": {
-    "polymer": "Polymer/polymer#master"
+    "polymer": "Polymer/polymer#0.2.2"
   }
 }
