@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <title>geo-location Demo</title>
+  <script src="../platform/platform.js"></script>
+  <link rel="import" href="geo-location.html">
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300italic,600,800|Source+Code+Pro" rel="stylesheet">
+  <style>
+  * {
+    box-sizing: border-box;
+  }
+  html, body {
+    height: 100%;
+    padding: 0;
+  }
+  body {
+    font-family: 'Open Sans', sans-serif;
+    background: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  h1 {
+    font-weight: 300;
+    font-size: 8vw;
+    margin-top: 0;
+  }
+  aside {
+    font-size: 2vw;
+  }
+  </style>
+</head>
+<body unresolved>
+
+<geo-location watchPos></geo-location>
+
+<template bind>
+  <h1>{{latitude}}, {{longitude}}</h1>
+</template>
+
+<div>Position updates as your device moves</div>
+
+<script>
+var t = document.querySelector('template');
+t.model = {
+  latitude: '?',
+  longitude: '?'
+};
+
+var geolocation = document.querySelector('geo-location');
+geolocation.addEventListener('geo-response', function(e) {
+  t.model.latitude = this.latitude.toFixed(6);
+  t.model.longitude = this.longitude.toFixed(6);
+});
+
+var map = document.querySelector('google-map');
+geolocation.addEventListener('geo-response', function(e) {
+  t.model.log.push({latitude: e.detail.latitude,
+                    longitude: e.detail.longitude});
+});
+
+
+document.addEventListener('polymer-ready', function() {
+  
+});
+</script>
+</body>
+</html>
