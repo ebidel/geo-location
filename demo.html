@@ -56,12 +56,6 @@ geolocation.addEventListener('geo-response', function(e) {
   t.model.latitude = this.latitude.toFixed(6);
   t.model.longitude = this.longitude.toFixed(6);
 });
-
-var map = document.querySelector('google-map');
-geolocation.addEventListener('geo-response', function(e) {
-  t.model.log.push({latitude: e.detail.latitude,
-                    longitude: e.detail.longitude});
-});
 </script>
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
