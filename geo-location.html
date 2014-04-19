@@ -33,7 +33,7 @@ Provides the current location using the Geolocation API.
 @homepage http://ebidel.github.io/geo-location
 -->
 <!-- TODO: decide if we need to cache results across instances. -->
-<polymer-element name="geo-location" attributes="watchPos highAccuracy latitude longitude position">
+<polymer-element name="geo-location" attributes="watchPos highAccuracy position">
   <template>
     <style no-shim>
       :host {
@@ -64,6 +64,26 @@ Provides the current location using the Geolocation API.
 
       Polymer('geo-location', {
 
+        publish: {
+          /**
+           * The latitude of the current position.
+           * 
+           * @attribute latitude
+           * @type Number
+           * @default null
+           */
+          latitude: {value: null, reflect: true},
+
+          /**
+           * The longitude of the current position.
+           * 
+           * @attribute longitude
+           * @type Number
+           * @default null
+           */
+          longitude: {value: null, reflect: true}
+        },
+
         /**
          * If true, the latitude/longitude update as the device changes position.
          * If not set, the latitude/longitude are provided once.
@@ -82,24 +102,6 @@ Provides the current location using the Geolocation API.
          * @default false
          */
         highAccuracy: false,
-
-        /**
-         * The latitude of the current position.
-         * 
-         * @attribute latitude
-         * @type Number
-         * @default null
-         */
-        latitude: null,
-
-        /**
-         * The longitude of the current position.
-         * 
-         * @attribute longitude
-         * @type Number
-         * @default null
-         */
-        longitude: null,
 
         /**
          * The maximumAge option in the Gelocation API.
