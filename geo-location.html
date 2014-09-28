@@ -6,7 +6,7 @@
 Provides the current location using the [Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation).
 
 <b>Example - basic</b>
-
+S
     <geo-location></geo-location>
 
     <script>
@@ -54,22 +54,23 @@ Provides the current location using the [Geolocation API](https://developer.mozi
        * @param {Object} detail
        * @param {boolean} detail.error The error message.
        */
-       /**
-        * Fired when the Geolocation API returns a position result.
-        *
-        * @event geo-response
-        * @param {Object} detail
-        *   @param {Position} position The raw position object returned by the Geolocation API.
-        *   @param {Number} detail.latitude Latitude of the current position.
-        *   @param {Number} detail.longitude Longitude of the current position.
-        */
 
-      Polymer('geo-location', {
+      /**
+       * Fired when the Geolocation API returns a position result.
+       *
+       * @event geo-response
+       * @param {Object} detail
+       *   @param {Position} position The raw position object returned by the Geolocation API.
+       *   @param {Number} detail.latitude Latitude of the current position.
+       *   @param {Number} detail.longitude Longitude of the current position.
+       */
+
+      Polymer({
 
         publish: {
           /**
            * The latitude of the current position.
-           * 
+           *
            * @attribute latitude
            * @type Number
            * @default null
@@ -78,7 +79,7 @@ Provides the current location using the [Geolocation API](https://developer.mozi
 
           /**
            * The longitude of the current position.
-           * 
+           *
            * @attribute longitude
            * @type Number
            * @default null
@@ -89,7 +90,7 @@ Provides the current location using the [Geolocation API](https://developer.mozi
         /**
          * If true, the latitude/longitude update as the device changes position.
          * If not set, the latitude/longitude are provided once.
-         * 
+         *
          * @attribute watchPos
          * @type boolean
          * @default false
@@ -98,7 +99,7 @@ Provides the current location using the [Geolocation API](https://developer.mozi
 
         /**
          * If true, enables high accuracy GPS.
-         * 
+         *
          * @attribute highAccuracy
          * @type boolean
          * @default false
@@ -107,7 +108,7 @@ Provides the current location using the [Geolocation API](https://developer.mozi
 
         /**
          * The maximumAge option in the Gelocation API.
-         * 
+         *
          * @property maximumAge
          * @type Number
          * @default 0
@@ -116,7 +117,7 @@ Provides the current location using the [Geolocation API](https://developer.mozi
 
         /**
          * The timeout option in the Gelocation API.
-         * 
+         *
          * @property timeout
          * @type Number
          * @default 5000
@@ -153,7 +154,7 @@ Provides the current location using the [Geolocation API](https://developer.mozi
         },
         /**
          * Success callback when the Geolocation API returns results.
-         * 
+         *
          * @method onPosition
          * @param {Position} pos A position object from the Geolocation API.
          */
@@ -169,14 +170,12 @@ Provides the current location using the [Geolocation API](https://developer.mozi
         },
         /**
          * Error callback when the Geolocation API returns an error.
-         * 
+         *
          * @method onError
          * @param {Position} err The error that was returned.
          */
         onError: function(err) {
-          this.fire('geo-error', {
-            error: err.code + ': ' + err.message
-          });
+          this.fire('geo-error', {error: err.code + ': ' + err.message});
         }
       });
     })();

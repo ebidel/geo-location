@@ -25,6 +25,6 @@
     "map"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.3.4"
+    "polymer": "Polymer/polymer#~0.4.1"
   }
 }
