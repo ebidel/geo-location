@@ -1,7 +1,7 @@
 {
   "name": "geo-location",
   "description": "Web component for the Geolocation API.",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "homepage": "http://ebidel.github.io/geo-location",
   "authors": [
     "Eric Bidelman"
