@@ -35,7 +35,7 @@ Provides the current location using the [Geolocation API](https://developer.mozi
 @homepage http://ebidel.github.io/geo-location
 -->
 <!-- TODO: decide if we need to cache results across instances. -->
-<polymer-element name="geo-location" attributes="watchPos highAccuracy position">
+<polymer-element name="geo-location" attributes="maximumAge watchPos highAccuracy position">
   <template>
     <style>
       :host {
@@ -109,7 +109,7 @@ Provides the current location using the [Geolocation API](https://developer.mozi
         /**
          * The maximumAge option in the Gelocation API.
          *
-         * @property maximumAge
+         * @attribute maximumAge
          * @type Number
          * @default 0
          */
