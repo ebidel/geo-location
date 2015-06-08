@@ -9,12 +9,9 @@
   "main": "geo-location.html",
   "license": "Apache2",
   "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests",
-    "../"
+    "/.*",
+    "/test/",
+    "/demo/"
   ],
   "keywords": [
     "web-component",
@@ -25,6 +22,9 @@
     "map"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.5.1"
+    "polymer": "Polymer/polymer#^1.0.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0"
   }
 }
