@@ -56,7 +56,8 @@ Provides the current location using the [Geolocation API](https://developer.mozi
         latitude: {
           type: Number,
           notify: true,
-          reflectToAttribute: true
+          reflectToAttribute: true,
+          readOnly: true
         },
 
         /**
@@ -65,7 +66,8 @@ Provides the current location using the [Geolocation API](https://developer.mozi
         longitude: {
           type: Number,
           notify: true,
-          reflectToAttribute: true
+          reflectToAttribute: true,
+          readOnly: true
         },
 
         /**
@@ -75,7 +77,7 @@ Provides the current location using the [Geolocation API](https://developer.mozi
         watchPos: {
           type: Boolean,
           value: false,
-          observer: "_watchPosChanged"
+          observer: '_watchPosChanged'
         },
 
         /**
@@ -107,7 +109,8 @@ Provides the current location using the [Geolocation API](https://developer.mozi
          */
         position: {
           type: Object,
-          notify: true
+          notify: true,
+          readOnly: true
         }
 
       },
@@ -165,9 +168,9 @@ Provides the current location using the [Geolocation API](https://developer.mozi
        * @param {Position} pos A position object from the Geolocation API.
        */
       _onPosition: function(pos) {
-        this.position = pos;
-        this.latitude = pos.coords.latitude;
-        this.longitude = pos.coords.longitude;
+        this._setPosition(pos);
+        this._setLatitude(pos.coords.latitude);
+        this._setLongitude(pos.coords.longitude);
         this.fire('geo-response', {
           latitude: this.latitude,
           longitude: this.longitude,
