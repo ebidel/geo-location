@@ -3,9 +3,10 @@
 <html>
 <head>
   <title>geo-location Demo</title>
-  <script src="../../webcomponentsjs/webcomponents.min.js"></script>
+  <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300|Source+Code+Pro">
   <link rel="import" href="../geo-location.html">
-  <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300italic,600,800|Source+Code+Pro" rel="stylesheet">
+  <link rel="import" href="../../iron-flex-layout/classes/iron-flex-layout.html">
   <style>
   * {
     box-sizing: border-box;
@@ -15,7 +16,7 @@
     padding: 0;
   }
   body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
     background: black;
     color: white;
   }
@@ -29,7 +30,7 @@
   }
   </style>
 </head>
-<body class="layout vertical center-justified center" unresolved>
+<body class="layout vertical center-center" unresolved>
 
 
 <template is="dom-bind">

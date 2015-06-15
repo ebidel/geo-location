@@ -14,8 +14,7 @@ Provides the current location using the [Geolocation API](https://developer.mozi
     <script>
       var loc = document.querySelector('geo-location');
       loc.addEventListener('geo-response', function(e) {
-        console.log('lat:' + this.latitude,
-                    'lng:' + this.longitude);
+        console.log('lat:' + this.latitude, 'lng:' + this.longitude);
       });
     </script>
 
@@ -32,15 +31,7 @@ Provides the current location using the [Geolocation API](https://developer.mozi
 
 @demo
 -->
-<dom-module id="geo-location">
-  <template>
-    <style>
-      :host {
-        display: none;
-      }
-    </style>
-  </template>
-</dom-module>
+<dom-module id="geo-location"></dom-module>
 <script>
   (function() {
     var id_ = null;
@@ -48,6 +39,10 @@ Provides the current location using the [Geolocation API](https://developer.mozi
     Polymer({
 
       is: 'geo-location',
+
+      hostAttributes: {
+        hidden: true
+      },
 
       properties: {
         /**
