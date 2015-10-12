@@ -1,8 +1,8 @@
 {
   "name": "geo-location",
   "description": "Web component for the Geolocation API.",
-  "version": "1.0.0",
-  "homepage": "http://ebidel.github.io/geo-location",
+  "version": "1.0.1",
+  "homepage": "https://ebidel.github.io/geo-location",
   "authors": [
     "Eric Bidelman"
   ],
@@ -22,9 +22,9 @@
     "map"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.0.3"
+    "polymer": "Polymer/polymer#^1.1.5"
   },
   "devDependencies": {
-    "iron-component-page": "PolymerElements/iron-component-page#^1.0.4"
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.5"
   }
 }
