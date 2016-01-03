@@ -35,7 +35,8 @@ Provides the current location using the [Geolocation API](https://developer.mozi
 <dom-module id="geo-location"></dom-module>
 <script>
   (function() {
-    var id_ = null;
+    var watch_ = null;
+    var fetching_ = false;
 
     Polymer({
 
@@ -53,7 +54,8 @@ Provides the current location using the [Geolocation API](https://developer.mozi
           type: Number,
           notify: true,
           reflectToAttribute: true,
-          readOnly: true
+          readOnly: true,
+          value: null
         },
 
         /**
@@ -63,7 +65,17 @@ Provides the current location using the [Geolocation API](https://developer.mozi
           type: Number,
           notify: true,
           reflectToAttribute: true,
-          readOnly: true
+          readOnly: true,
+          value: null
+        },
+
+        /**
+         * If true, the element won't be active at all
+         */
+        idle: {
+          type: Boolean,
+          value: false,
+          observer: 'fetch'
         },
 
         /**
@@ -73,7 +85,7 @@ Provides the current location using the [Geolocation API](https://developer.mozi
         watchPos: {
           type: Boolean,
           value: false,
-          observer: '_watchPosChanged'
+          observer: 'fetch'
         },
 
         /**
@@ -106,7 +118,8 @@ Provides the current location using the [Geolocation API](https://developer.mozi
         position: {
           type: Object,
           notify: true,
-          readOnly: true
+          readOnly: true,
+          value: null
         }
 
       },
@@ -129,32 +142,44 @@ Provides the current location using the [Geolocation API](https://developer.mozi
        */
 
       ready: function() {
+        this.fetch();
+      },
+
+      clear: function () {
+        this._setPosition(null);
+        this._setLatitude(null);
+        this._setLongitude(null);
+      },
+
+      fetch: function () {
+        if (fetching_) {
+          return;
+        }
+
+        if (watch_) {
+          navigator.geolocation.clearWatch(watch_);
+          watch_ = null;
+        }
+
+        if (this.idle) {
+          return;
+        }
+
+        fetching_ = true;
+
+        var success = this._onPosition.bind(this);
+        var error = this._onError.bind(this);
         var options = {
           enableHighAccuracy: this.highAccuracy,
           timeout: this.timeout,
           maximumAge: this.maximumAge
         };
 
-        if (!this.watchPos) {
-          navigator.geolocation.getCurrentPosition(
-            this._onPosition.bind(this), this._onError.bind(this), options);
-        }
-      },
-
-      _watchPosChanged: function() {
-        if (id_) {
-          navigator.geolocation.clearWatch(id_);
-          id_ = null;
-        }
-
         if (this.watchPos) {
-          var options = {
-            enableHighAccuracy: this.highAccuracy,
-            timeout: this.timeout,
-            maximumAge: this.maximumAge
-          };
-          id_ = navigator.geolocation.watchPosition(
-            this._onPosition.bind(this), this._onError.bind(this), options);
+          watch_ = navigator.geolocation.watchPosition(success, error, options);
+        }
+        else {
+          navigator.geolocation.getCurrentPosition(success, error, options);
         }
       },
 
@@ -164,9 +189,12 @@ Provides the current location using the [Geolocation API](https://developer.mozi
        * @param {Position} pos A position object from the Geolocation API.
        */
       _onPosition: function(pos) {
+        fetching_ = false;
+
         this._setPosition(pos);
         this._setLatitude(pos.coords.latitude);
         this._setLongitude(pos.coords.longitude);
+
         this.fire('geo-response', {
           latitude: this.latitude,
           longitude: this.longitude,
@@ -180,7 +208,12 @@ Provides the current location using the [Geolocation API](https://developer.mozi
        * @param {Position} err The error that was returned.
        */
       _onError: function(err) {
-        this.fire('geo-error', {error: err.code + ': ' + err.message});
+        fetching_ = false;
+
+        this.fire('geo-error', {
+          error: err.code + ': ' + err.message,
+          code: err.code
+        });
       }
     });
   })();
