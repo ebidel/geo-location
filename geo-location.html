@@ -151,6 +151,12 @@ Provides the current location using the [Geolocation API](https://developer.mozi
       },
 
       fetch: function () {
+        // Guard clause in case observer runs before element is ready. Refer to Polymer issue #3438
+        // https://github.com/Polymer/polymer/issues/3438
+        if (this.idle === undefined || this.watchPos === undefined) {
+          return;
+        }
+
         if (fetching_) {
           return;
         }
