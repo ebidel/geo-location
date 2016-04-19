@@ -35,7 +35,6 @@ Provides the current location using the [Geolocation API](https://developer.mozi
 <script>
   (function() {
     var watch_ = null;
-    var fetching_ = false;
 
     Polymer({
 
@@ -122,6 +121,11 @@ Provides the current location using the [Geolocation API](https://developer.mozi
         }
 
       },
+
+      observers: [
+        'fetch(idle, watchPos, highAccuracy, timeout, maximumAge)'
+      ],
+
      /**
        * Fired when the Geolocation API returns an error.
        *
@@ -140,10 +144,6 @@ Provides the current location using the [Geolocation API](https://developer.mozi
        *   @param {Number} detail.longitude Longitude of the current position.
        */
 
-      ready: function() {
-        this.fetch();
-      },
-
       clear: function () {
         this._setPosition(null);
         this._setLatitude(null);
@@ -151,16 +151,6 @@ Provides the current location using the [Geolocation API](https://developer.mozi
       },
 
       fetch: function () {
-        // Guard clause in case observer runs before element is ready. Refer to Polymer issue #3438
-        // https://github.com/Polymer/polymer/issues/3438
-        if (this.idle === undefined || this.watchPos === undefined) {
-          return;
-        }
-
-        if (fetching_) {
-          return;
-        }
-
         if (watch_) {
           navigator.geolocation.clearWatch(watch_);
           watch_ = null;
@@ -169,8 +159,6 @@ Provides the current location using the [Geolocation API](https://developer.mozi
         if (this.idle) {
           return;
         }
-
-        fetching_ = true;
 
         var success = this._onPosition.bind(this);
         var error = this._onError.bind(this);
@@ -194,8 +182,6 @@ Provides the current location using the [Geolocation API](https://developer.mozi
        * @param {Position} pos A position object from the Geolocation API.
        */
       _onPosition: function(pos) {
-        fetching_ = false;
-
         this._setPosition(pos);
         this._setLatitude(pos.coords.latitude);
         this._setLongitude(pos.coords.longitude);
@@ -213,8 +199,6 @@ Provides the current location using the [Geolocation API](https://developer.mozi
        * @param {Position} err The error that was returned.
        */
       _onError: function(err) {
-        fetching_ = false;
-
         this.fire('geo-error', {
           error: err.code + ': ' + err.message,
           code: err.code
