@@ -111,6 +111,14 @@ Provides the current location using the [Geolocation API](https://developer.mozi
         },
 
         /**
+         * Throws an error after `permissionTimeout` when user has not granted permissions
+         */
+        permissionTimeout: {
+          type: Number,
+          value: 0
+        },
+
+        /**
          * Geolocation API position object
          */
         position: {
@@ -150,6 +158,13 @@ Provides the current location using the [Geolocation API](https://developer.mozi
         this._setLongitude(null);
       },
 
+      clearPermissionTimeout: function () {
+        if (this._errorTimer) {
+          clearTimeout(this._errorTimer);
+          delete this._errorTimer;
+        }
+      },
+
       fetch: function () {
         if (watch_) {
           navigator.geolocation.clearWatch(watch_);
@@ -174,6 +189,15 @@ Provides the current location using the [Geolocation API](https://developer.mozi
         else {
           navigator.geolocation.getCurrentPosition(success, error, options);
         }
+
+        if (this.permissionTimeout) {
+          this._errorTimer = setTimeout(function () {
+            error({
+              code: 1,
+              message: 'User did not grant permissions'
+            });
+          }, this.permissionTimeout);
+        }
       },
 
       /**
@@ -182,6 +206,8 @@ Provides the current location using the [Geolocation API](https://developer.mozi
        * @param {Position} pos A position object from the Geolocation API.
        */
       _onPosition: function(pos) {
+        this.clearPermissionTimeout();
+
         this._setPosition(pos);
         this._setLatitude(pos.coords.latitude);
         this._setLongitude(pos.coords.longitude);
@@ -199,6 +225,8 @@ Provides the current location using the [Geolocation API](https://developer.mozi
        * @param {Position} err The error that was returned.
        */
       _onError: function(err) {
+        this.clearPermissionTimeout();
+
         this.fire('geo-error', {
           error: err.code + ': ' + err.message,
           code: err.code
