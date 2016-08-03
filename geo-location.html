@@ -142,6 +142,21 @@ Provides the current location using the [Geolocation API](https://developer.mozi
        *   @param {Number} detail.longitude Longitude of the current position.
        */
 
+      detached: function () {
+        if (watch_ !== null && watch_ >= 0) {
+          this._clearWatch(watch_);
+        }
+      },
+
+      /**
+       * Stop updating latitude/longitude as the device changes position.
+       * @param {Number} watch_ watch ID value.
+       */
+      _clearWatch: function (watch_) {
+        navigator.geolocation.clearWatch(watch_);
+        watch_ = null;
+      },
+
       clear: function () {
         this._setPosition(null);
         this._setLatitude(null);
@@ -149,9 +164,8 @@ Provides the current location using the [Geolocation API](https://developer.mozi
       },
 
       fetch: function () {
-        if (watch_) {
-          navigator.geolocation.clearWatch(watch_);
-          watch_ = null;
+        if (watch_ !== null && watch_ >= 0) {
+          this._clearWatch(watch_);
         }
 
         if (this.idle) {
@@ -168,8 +182,7 @@ Provides the current location using the [Geolocation API](https://developer.mozi
 
         if (this.watchPos) {
           watch_ = navigator.geolocation.watchPosition(success, error, options);
-        }
-        else {
+        }else {
           navigator.geolocation.getCurrentPosition(success, error, options);
         }
       },
