@@ -143,18 +143,18 @@ Provides the current location using the [Geolocation API](https://developer.mozi
        */
 
       detached: function () {
-        if (watch_ !== null && watch_ >= 0) {
+        if (watch_ !== null) {
           this._clearWatch(watch_);
         }
       },
 
       /**
        * Stop updating latitude/longitude as the device changes position.
-       * @param {Number} watch_ watch ID value.
+       * @param {Number} watch watch ID value.
        */
-      _clearWatch: function (watch_) {
-        navigator.geolocation.clearWatch(watch_);
-        watch_ = null;
+      _clearWatch: function (watch) {
+        navigator.geolocation.clearWatch(watch);
+        watch = null;
       },
 
       clear: function () {
@@ -164,7 +164,7 @@ Provides the current location using the [Geolocation API](https://developer.mozi
       },
 
       fetch: function () {
-        if (watch_ !== null && watch_ >= 0) {
+        if (watch_ !== null) {
           this._clearWatch(watch_);
         }
 
@@ -182,7 +182,7 @@ Provides the current location using the [Geolocation API](https://developer.mozi
 
         if (this.watchPos) {
           watch_ = navigator.geolocation.watchPosition(success, error, options);
-        }else {
+        } else {
           navigator.geolocation.getCurrentPosition(success, error, options);
         }
       },
