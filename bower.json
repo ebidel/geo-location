@@ -7,7 +7,7 @@
     "Eric Bidelman"
   ],
   "main": "geo-location.html",
-  "license": "Apache2",
+  "license": "Apache-2",
   "ignore": [
     "/.*",
     "/test/",
