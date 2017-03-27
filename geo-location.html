@@ -34,7 +34,6 @@ Provides the current location using the [Geolocation API](https://developer.mozi
 -->
 <script>
   (function() {
-    var watch_ = null;
 
     Polymer({
 
@@ -143,7 +142,7 @@ Provides the current location using the [Geolocation API](https://developer.mozi
        */
 
       detached: function () {
-        this._clearWatch(watch_);
+        this._clearWatch(this._watch);
       },
 
       /**
@@ -151,9 +150,9 @@ Provides the current location using the [Geolocation API](https://developer.mozi
        * @param {Number} watch watch ID value.
        */
       _clearWatch: function (watch) {
-        if (watch !== null) {
+        if (watch) {
             navigator.geolocation.clearWatch(watch);
-            watch_ = null;   
+            this._watch = null;
         }
       },
 
@@ -164,7 +163,7 @@ Provides the current location using the [Geolocation API](https://developer.mozi
       },
 
       fetch: function () {
-        this._clearWatch(watch_);
+        this._clearWatch(this._watch);
 
         if (this.idle) {
           return;
@@ -179,7 +178,7 @@ Provides the current location using the [Geolocation API](https://developer.mozi
         };
 
         if (this.watchPos) {
-          watch_ = navigator.geolocation.watchPosition(success, error, options);
+          this._watch = navigator.geolocation.watchPosition(success, error, options);
         } else {
           navigator.geolocation.getCurrentPosition(success, error, options);
         }
