@@ -22,7 +22,7 @@
     "map"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.2.3"
+    "polymer": "Polymer/polymer#^2.0.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.5"
