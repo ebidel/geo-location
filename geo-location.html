@@ -5,38 +5,23 @@
 <!-- TODO: decide if we need to cache results across instances. -->
 
 <!--
-Provides the current location using the [Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation).
+Geolocation API Polymer web component.
 
-<b>Example - basic</b>
+Example to get the device geolocation values:
 
-    <geo-location></geo-location>
+```html
+<geo-location
+    latitude="{{latitude}}"
+    longitude="{{longitude}}">
+</geo-location>
+```
 
-    <script>
-      var loc = document.querySelector('geo-location');
-      loc.addEventListener('geo-response', function(e) {
-        console.log('lat:' + this.latitude, 'lng:' + this.longitude);
-      });
-    </script>
-
-<b>Example</b> - continuous updates from the device using high accuracy:
-
-    <geo-location watch-pos high-accuracy></geo-location>
-
-<b>Example</b> - centering a [Google Map](https://github.com/GoogleWebComponents/google-map) marker to the current location, using data-binding:
-
-     <geo-location latitude="{{lat}}"
-                   longitude="{{lng}}"></geo-location>
-     <google-map latitude="[[lat]]" longitude="[[lng]]">
-       <google-map-marker latitude="[[lat]]" longitude="[[lng]]"></google-map-marker>
-     </google-map>
-
-@demo
+@demo demo/index.html
 -->
-<script>
-  (function() {
 
+<dom-module id="geo-location">
+  <script>
     Polymer({
-
       is: 'geo-location',
 
       hostAttributes: {
@@ -67,7 +52,7 @@ Provides the current location using the [Geolocation API](https://developer.mozi
         },
 
         /**
-         * If true, the element won't be active at all
+         * If true, the element won't be active at all.
          */
         idle: {
           type: Boolean,
@@ -213,5 +198,5 @@ Provides the current location using the [Geolocation API](https://developer.mozi
         });
       }
     });
-  })();
-</script>
+  </script>
+</dom-module>
