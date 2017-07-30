@@ -30,10 +30,7 @@
         <template>
           <dom-bind>
             <template is="dom-bind">
-              <geo-location
-                  latitude="{{latitude}}"
-                  longitude="{{longitude}}">
-              </geo-location>
+              <geo-location latitude="{{latitude}}" longitude="{{longitude}}"></geo-location>
 
               <ul>
                 <li>Latitude: [[latitude]]</li>
@@ -49,21 +46,11 @@
         <template>
           <dom-bind>
             <template is="dom-bind">
-              <geo-location
-                  watch-pos
-                  high-accuracy
-                  latitude="{{latitude}}"
-                  longitude="{{longitude}}">
-              </geo-location>
+              <geo-location watch-pos high-accuracy latitude="{{latitude}}" longitude="{{longitude}}"></geo-location>
 
-              <google-map
-                  latitude="[[latitude]]"
-                  longitude="[[longitude]]">
-                <google-map-marker
-                    slot="markers"
-                    latitude="[[latitude]]"
-                    longitude="[[longitude]]">
-                </google-map-marker>
+              <!-- TODO: change the API key to your own. -->
+              <google-map latitude="[[latitude]]" longitude="[[longitude]]" api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc">
+                <google-map-marker slot="markers" latitude="[[latitude]]" longitude="[[longitude]]"></google-map-marker>
               </google-map>
             </template>
           </dom-bind>

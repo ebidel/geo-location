@@ -23,10 +23,7 @@ Example to get the device geolocation values:
 ```
 -->
 ```html
-<geo-location
-    latitude="{{latitude}}"
-    longitude="{{longitude}}">
-</geo-location>
+<geo-location latitude="{{latitude}}" longitude="{{longitude}}"></geo-location>
 
 <ul>
   <li>Latitude: [[latitude]]</li>
