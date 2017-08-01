@@ -6,13 +6,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>geo-location</title>
+    <title>geo-location tests</title>
 
-    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
-
-    <link rel="import" href="../iron-component-page/iron-component-page.html">
+    <script src="../../web-component-tester/browser.js"></script>
   </head>
   <body>
-    <iron-component-page></iron-component-page>
+    <script>
+      WCT.loadSuites([
+        'geo-location.html',
+        'geo-location.html?dom=shadow'
+      ]);
+    </script>
   </body>
 </html>

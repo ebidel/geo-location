@@ -1,61 +1,83 @@
-<!doctype html>
 <!-- Copyright Eric Bidelman <ebidel@gmail.com> -->
+
+<!doctype html>
 <html>
-<head>
-  <title>geo-location Demo</title>
-  <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300|Source+Code+Pro">
-  <link rel="import" href="../geo-location.html">
-  <link rel="import" href="../../iron-flex-layout/classes/iron-flex-layout.html">
-  <style>
-  * {
-    box-sizing: border-box;
-  }
-  html, body {
-    height: 100%;
-    padding: 0;
-  }
-  body {
-    font-family: 'Roboto', sans-serif;
-    background: black;
-    color: white;
-  }
-  h2 {
-    font-weight: 300;
-    font-size: 3.5vw;
-    margin-top: 0;
-  }
-  pre {
-    font-family: 'Source Code Pro';
-  }
-  </style>
-</head>
-<body class="layout vertical center-center" unresolved>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
+    <title>geo-location demo</title>
 
-<template is="dom-bind">
-  <geo-location watch-pos latitude="{{latitude}}" longitude="{{longitude}}"></geo-location>
-  <h2><pre>&lt;geo-location latitude="<span>{{latitude}}</span>"
-              longitude="<span>{{longitude}}</span>">
-&lt;/geo-location></pre></h2>
-</template>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
-<div>Position updates as your device moves</div>
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../google-map/google-map.html">
+    <link rel="import" href="../geo-location.html">
 
-<script>
-var t = document.querySelector('template');
-t.latitude = '???';
-t.longitude = '???';
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+        google-map {
+          height: 600px;
+        }
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Get the device geolocation values</h3>
+      <demo-snippet>
+        <template>
+          <dom-bind>
+            <template is="dom-bind">
+              <geo-location latitude="{{latitude}}" longitude="{{longitude}}"></geo-location>
 
-</script>
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
- (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
- m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
- })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+              <ul>
+                <li>Latitude: [[latitude]]</li>
+                <li>Longitude: [[longitude]]</li>
+              </ul>
+            </template>
+          </dom-bind>
+        </template>
+      </demo-snippet>
 
- ga('create', 'UA-43475701-1', 'ebidel.github.io');
- ga('send', 'pageview');
-</script>
-</body>
+      <h3>Continuous update the device geolocation values with high accuracy, and center Google Maps map and marker to the current location</h3>
+      <demo-snippet>
+        <template>
+          <dom-bind>
+            <template is="dom-bind">
+              <geo-location watch-pos high-accuracy latitude="{{latitude}}" longitude="{{longitude}}"></geo-location>
+
+              <!-- TODO: change the API key to your own. -->
+              <google-map latitude="[[latitude]]" longitude="[[longitude]]" api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc">
+                <google-map-marker slot="markers" latitude="[[latitude]]" longitude="[[longitude]]"></google-map-marker>
+              </google-map>
+            </template>
+          </dom-bind>
+        </template>
+      </demo-snippet>
+
+      <h3>Continuous update the position object properties values with high accuracy</h3>
+      <demo-snippet>
+        <template>
+          <dom-bind>
+            <template is="dom-bind">
+              <geo-location watch-pos high-accuracy timeout="1000" position="{{position}}"></geo-location>
+
+              <ul>
+                <li>Timestamp: [[position.timestamp]]</li>
+                <li>Latitude: [[position.coords.latitude]]</li>
+                <li>Longitude: [[position.coords.longitude]]</li>
+                <li>Altitude: [[position.coords.altitude]]</li>
+                <li>Accuracy: [[position.coords.accuracy]]</li>
+                <li>Altitude accuracy: [[position.coords.altitudeAccuracy]]</li>
+                <li>Heading: [[position.coords.heading]]</li>
+                <li>Speed: [[position.coords.speed]]</li>
+              </ul>
+            </template>
+          </dom-bind>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
 </html>
