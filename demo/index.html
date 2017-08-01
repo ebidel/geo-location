@@ -56,6 +56,28 @@
           </dom-bind>
         </template>
       </demo-snippet>
+
+      <h3>Continuous update the position object properties values with high accuracy</h3>
+      <demo-snippet>
+        <template>
+          <dom-bind>
+            <template is="dom-bind">
+              <geo-location watch-pos high-accuracy timeout="1000" position="{{position}}"></geo-location>
+
+              <ul>
+                <li>Timestamp: [[position.timestamp]]</li>
+                <li>Latitude: [[position.coords.latitude]]</li>
+                <li>Longitude: [[position.coords.longitude]]</li>
+                <li>Altitude: [[position.coords.altitude]]</li>
+                <li>Accuracy: [[position.coords.accuracy]]</li>
+                <li>Altitude accuracy: [[position.coords.altitudeAccuracy]]</li>
+                <li>Heading: [[position.coords.heading]]</li>
+                <li>Speed: [[position.coords.speed]]</li>
+              </ul>
+            </template>
+          </dom-bind>
+        </template>
+      </demo-snippet>
     </div>
   </body>
 </html>
