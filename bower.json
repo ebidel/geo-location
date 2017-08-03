@@ -40,7 +40,7 @@
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#1 - 2",
     "web-component-tester": "Polymer/web-component-tester#^6.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
-    "google-map": "GoogleWebComponents/google-map#2.0-preview"
+    "google-map": "GoogleWebComponents/google-map#1 - 2"
   },
   "variants": {
     "1.x": {
