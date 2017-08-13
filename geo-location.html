@@ -7,10 +7,16 @@
 <!--
 Geolocation API Polymer web component.
 
-Example to get the device geolocation values:
+Get once and display the device geolocation values and whether Geolocation API is supported or not:
 
 ```html
-<geo-location latitude="{{latitude}}" longitude="{{longitude}}"></geo-location>
+<geo-location api-supported="{{apiSupported}}" latitude="{{latitude}}" longitude="{{longitude}}"></geo-location>
+
+<ul>
+  <li>API supported: [[apiSupported]]</li>
+  <li>Latitude: [[latitude]]</li>
+  <li>Longitude: [[longitude]]</li>
+</ul>
 ```
 
 Continuous update the device geolocation values with high accuracy, and center Google Maps map and marker to the current location:
@@ -37,6 +43,16 @@ TODO: change the API key to your own.
     },
 
     properties: {
+      /**
+       * Indicates whether `Geolocation API` is supported or not.
+       */
+      apiSupported: {
+        type: Boolean,
+        readOnly: true,
+        notify: true,
+        value: 'geolocation' in navigator
+      },
+
       /**
        * The latitude of the current position.
        */
