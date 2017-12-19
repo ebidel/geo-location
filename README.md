@@ -4,7 +4,7 @@
 
 Geolocation API Polymer web component.
 
-Get once and display the device geolocation values and continuous update the Gelocation API permission status:
+Get once and display the device geolocation values and continuous update the Geolocation API permission status:
 <!---
 ```
 <custom-element-demo>
