@@ -4,7 +4,7 @@
 
 Geolocation API Polymer web component.
 
-Example to get the device geolocation values:
+Get once and display the device geolocation values and continuous update the Gelocation API permission status:
 <!---
 ```
 <custom-element-demo>
@@ -23,9 +23,10 @@ Example to get the device geolocation values:
 ```
 -->
 ```html
-<geo-location latitude="{{latitude}}" longitude="{{longitude}}"></geo-location>
+<geo-location permission-status="{{permissionStatus}}" latitude="{{latitude}}" longitude="{{longitude}}"></geo-location>
 
 <ul>
+  <li>Permission status: [[permissionStatus]]</li>
   <li>Latitude: [[latitude]]</li>
   <li>Longitude: [[longitude]]</li>
 </ul>

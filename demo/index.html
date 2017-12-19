@@ -25,14 +25,15 @@
   </head>
   <body>
     <div class="vertical-section-container centered">
-      <h3>Get the device geolocation values</h3>
+      <h3>Get once and display the device geolocation values and continuous update the Gelocation API permission status</h3>
       <demo-snippet>
         <template>
           <dom-bind>
             <template is="dom-bind">
-              <geo-location latitude="{{latitude}}" longitude="{{longitude}}"></geo-location>
+              <geo-location permission-status="{{permissionStatus}}" latitude="{{latitude}}" longitude="{{longitude}}"></geo-location>
 
               <ul>
+                <li>Permission status: [[permissionStatus]]</li>
                 <li>Latitude: [[latitude]]</li>
                 <li>Longitude: [[longitude]]</li>
               </ul>
