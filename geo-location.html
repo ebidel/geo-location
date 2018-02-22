@@ -60,6 +60,17 @@ TODO: change the API key to your own.
       },
 
       /**
+       * The accuracy of the current position.
+       */
+      accuracy: {
+        type: Number,
+        notify: true,
+        reflectToAttribute: true,
+        readOnly: true,
+        value: null
+      },
+
+      /**
        * If true, the element won't be active at all.
        */
       idle: {
@@ -116,13 +127,13 @@ TODO: change the API key to your own.
       'fetch(idle, watchPos, highAccuracy, timeout, maximumAge)'
     ],
 
-   /**
-     * Fired when the Geolocation API returns an error.
-     *
-     * @event geo-error
-     * @param {Object} detail
-     * @param {boolean} detail.error The error message.
-     */
+    /**
+      * Fired when the Geolocation API returns an error.
+      *
+      * @event geo-error
+      * @param {Object} detail
+      * @param {boolean} detail.error The error message.
+      */
 
     /**
      * Fired when the Geolocation API returns a position result.
@@ -132,6 +143,7 @@ TODO: change the API key to your own.
      *   @param {Position} position The raw position object returned by the Geolocation API.
      *   @param {Number} detail.latitude Latitude of the current position.
      *   @param {Number} detail.longitude Longitude of the current position.
+     *   @param {Number} detail.accuracy Accuracy of the current position.
      */
 
     detached: function () {
@@ -144,8 +156,8 @@ TODO: change the API key to your own.
      */
     _clearWatch: function (watch) {
       if (watch) {
-          navigator.geolocation.clearWatch(watch);
-          this._watch = null;
+        navigator.geolocation.clearWatch(watch);
+        this._watch = null;
       }
     },
 
@@ -153,6 +165,7 @@ TODO: change the API key to your own.
       this._setPosition(null);
       this._setLatitude(null);
       this._setLongitude(null);
+      this._setAccuracy(null);
     },
 
     fetch: function () {
@@ -182,14 +195,16 @@ TODO: change the API key to your own.
      *
      * @param {Position} pos A position object from the Geolocation API.
      */
-    _onPosition: function(pos) {
+    _onPosition: function (pos) {
       this._setPosition(pos);
       this._setLatitude(pos.coords.latitude);
       this._setLongitude(pos.coords.longitude);
+      this._setAccuracy(pos.coords.accuracy)
 
       this.fire('geo-response', {
         latitude: this.latitude,
         longitude: this.longitude,
+        accuracy: this.accuracy,
         position: pos
       });
     },
@@ -199,7 +214,7 @@ TODO: change the API key to your own.
      *
      * @param {Position} err The error that was returned.
      */
-    _onError: function(err) {
+    _onError: function (err) {
       this.fire('geo-error', {
         error: err.code + ': ' + err.message,
         code: err.code
