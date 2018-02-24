@@ -195,11 +195,11 @@ TODO: change the API key to your own.
      *
      * @param {Position} pos A position object from the Geolocation API.
      */
-    _onPosition: function (pos) {
+    _onPosition: function(pos) {
       this._setPosition(pos);
       this._setLatitude(pos.coords.latitude);
       this._setLongitude(pos.coords.longitude);
-      this._setAccuracy(pos.coords.accuracy)
+      this._setAccuracy(pos.coords.accuracy);
 
       this.fire('geo-response', {
         latitude: this.latitude,
@@ -214,7 +214,7 @@ TODO: change the API key to your own.
      *
      * @param {Position} err The error that was returned.
      */
-    _onError: function (err) {
+    _onError: function(err) {
       this.fire('geo-error', {
         error: err.code + ': ' + err.message,
         code: err.code
