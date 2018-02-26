@@ -14,11 +14,12 @@
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
     <link rel="import" href="../../google-map/google-map.html">
     <link rel="import" href="../geo-location.html">
+    <link rel="import" href="navigation-arrow.html">
 
     <custom-style>
       <style is="custom-style" include="demo-pages-shared-styles">
         google-map {
-          height: 600px;
+          height: 300px;
         }
       </style>
     </custom-style>
@@ -52,6 +53,19 @@
               <google-map latitude="[[latitude]]" longitude="[[longitude]]" api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc">
                 <google-map-marker slot="markers" latitude="[[latitude]]" longitude="[[longitude]]"></google-map-marker>
               </google-map>
+            </template>
+          </dom-bind>
+        </template>
+      </demo-snippet>
+
+      <h3>Continuous update the position object properties values with high accuracy, and rotate the navigation arrow to the true north</h3>
+      <demo-snippet class="centered-demo">
+        <template>
+          <dom-bind>
+            <template is="dom-bind">
+              <geo-location watch-pos high-accuracy position="{{position}}"></geo-location>
+
+              <navigation-arrow heading="[[position.coords.heading]]"></navigation-arrow>
             </template>
           </dom-bind>
         </template>
