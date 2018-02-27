@@ -7,10 +7,16 @@
 <!--
 Geolocation API Polymer web component.
 
-Example to get the device geolocation values:
+Get once and display the device geolocation values and continuous update the Geolocation API permission status:
 
 ```html
-<geo-location latitude="{{latitude}}" longitude="{{longitude}}"></geo-location>
+<geo-location permission-status="{{permissionStatus}}" latitude="{{latitude}}" longitude="{{longitude}}"></geo-location>
+
+<ul>
+  <li>Permission status: [[permissionStatus]]</li>
+  <li>Latitude: [[latitude]]</li>
+  <li>Longitude: [[longitude]]</li>
+</ul>
 ```
 
 Continuous update the device geolocation values with high accuracy, and center Google Maps map and marker to the current location:
@@ -85,7 +91,7 @@ TODO: change the API key to your own.
       },
 
       /**
-       * The maximumAge option in the Gelocation API.
+       * The maximumAge option in the Geolocation API.
        */
       maximumAge: {
         type: Number,
@@ -93,7 +99,7 @@ TODO: change the API key to your own.
       },
 
       /**
-       * The timeout option in the Gelocation API.
+       * The timeout option in the Geolocation API.
        */
       timeout: {
         type: Number,
@@ -108,6 +114,15 @@ TODO: change the API key to your own.
         notify: true,
         readOnly: true,
         value: null
+      },
+
+      /**
+       * [Status](https://w3c.github.io/permissions/#status-of-a-permission) of Geolocation API permission.
+       */
+      permissionStatus: {
+        type: String,
+        readOnly: true,
+        notify: true
       }
 
     },
@@ -133,6 +148,19 @@ TODO: change the API key to your own.
      *   @param {Number} detail.latitude Latitude of the current position.
      *   @param {Number} detail.longitude Longitude of the current position.
      */
+
+    attached: function() {
+      if ('permissions' in navigator) {
+        navigator.permissions.query({
+          name: 'geolocation'
+        }).then(function(permissionStatus) {
+          this._setPermissionStatus(permissionStatus.state);
+          permissionStatus.onchange = function() {
+            this._setPermissionStatus(permissionStatus.state);
+          }.bind(this);
+        }.bind(this));
+      }
+    },
 
     detached: function () {
       this._clearWatch(this._watch);
