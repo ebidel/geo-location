@@ -1,0 +1,27 @@
+<!-- Copyright Eric Bidelman <ebidel@gmail.com> -->
+
+<link rel="import" href="../../polymer/polymer.html">
+
+<dom-module id="navigation-arrow">
+  <template>
+    <svg viewBox="-4.5625 -4.5625 9.125 9.125" width="100" height="100">
+      <polygon
+          points="0,-4.5625 3,3.4375 0,1.4375 -3,3.4375"
+          fill="#db4437"
+          transform$="rotate([[heading]])">
+      </polygon>
+    </svg>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'navigation-arrow',
+      properties: {
+        heading: {
+          type: Number,
+          value: 0
+        }
+      }
+    });
+  </script>
+</dom-module>
